@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stylesheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 
 import TimerButton from './TimerButton';
 
