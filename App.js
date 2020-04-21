@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, Text } from 'react-native';
-
-import uuidv4 from 'uuid/v4';
+// import 'react-native-get-random-values';
+// import { v4 as uuidv4 } from 'uuid';
 
 import EditableTimer from './components/EditableTimer';
 import ToggleableTimerForm from './components/ToggleableTimerForm';
@@ -12,14 +12,16 @@ export default class App extends React.Component {
       {
         title: 'Mow the lawn',
         project: 'House Chores',
-        id: uuidv4(),
+        // id: uuidv4(),
+        id: 2,
         elapsed: 5456099,
         isRunning: true
       },
       {
         title: 'Bake squash',
         project: 'Kitchen Chores',
-        id: uuidv4(),
+        // id: uuidv4(),
+        id: 3,
         elapsed: 1273998,
         isRunning: false
       },
@@ -27,6 +29,8 @@ export default class App extends React.Component {
   };
 
   render() {
+    const { timers } = this.state;
+    
     return (
       <View style={styles.appContainer}>
         <View style={styles.titleContainer}>
