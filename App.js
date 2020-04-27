@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, ScrollView, Text } from 'react-native';
 // import 'react-native-get-random-values';
 // import { v4 as uuidv4 } from 'uuid';
+import { newTimer } from './utils/TimerUtils';
 
 import EditableTimer from './components/EditableTimer';
 import ToggleableTimerForm from './components/ToggleableTimerForm';
@@ -28,16 +29,51 @@ export default class App extends React.Component {
     ],
   };
 
+  handleCreateFormSubmit = timer => {
+    const { timers } = this.state;
+
+    this.setState({
+      timers: [newTimer(timer), ...timers],
+    });
+  }
+
+  handleFormSubmit = attrs => {
+    const { timers } = this.state;
+
+    this.setState({
+      timers: timers.map(timer => {
+        if (timer.id === attrs.id) {
+          const { title, project } = attrs;
+
+          return {
+            ...timer,
+            title,
+            project,
+          }
+        }
+        return timer;
+      }),
+    });
+  };
+
+  handleRemovePress = timerId => {
+    this.setState({
+      timers: this.state.timers.filter(t => t.id !== timerId),
+    });
+  }
+
   render() {
     const { timers } = this.state;
-    
+
     return (
       <View style={styles.appContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Timers</Text>
         </View>
         <ScrollView style={styles.timerList}>
-          <ToggleableTimerForm />
+          <ToggleableTimerForm
+            onFormSubmit={this.handleCreateFormSubmit}
+          />
           {timers.map(
             ({ title, project, id, elapsed, isRunning }) => (
               <EditableTimer
@@ -47,6 +83,8 @@ export default class App extends React.Component {
                 project={project}
                 elapsed={elapsed}
                 isRunning={isRunning}
+                onFormSubmit={this.handleFormSubmit}
+                onRemovePress={this.handleRemovePress}
               />
             ),
           )}

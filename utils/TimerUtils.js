@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+// import uuidv4 from 'uuid/v4';
 
 export const millisecondsToHuman = ms => {
   const seconds = Math.floor((ms / 1000) % 60);
@@ -26,7 +26,8 @@ export const newTimer = (attrs = {}) => {
   const timer = {
     title: attrs.title || 'Timer',
     project: attrs.project || 'Project',
-    id: uuidv4(),
+    // id: uuidv4(),
+    id: Math.random(),
     elapsed: 0,
     isRunning: false,
   };
