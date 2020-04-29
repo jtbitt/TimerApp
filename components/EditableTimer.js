@@ -31,8 +31,38 @@ export default class EditableTimer extends React.Component {
     this.setState({ editFormOpen: true });
   }
 
+  toggleTimer = timerId => {
+    this.setState(prevState => {
+      const { timers } = prevState;
+
+      return {
+        timers: timers.map(timer => {
+          const { id, isRunning } = timer;
+
+          if (id === timerId) {
+            return {
+              ...timer,
+              isRunning: !isRunning
+            }
+          }
+
+          return timer;
+        }),
+      };
+    });
+  };
+
   render() {
-    const { id, title, project, elapsed, isRunning, onRemovePress } = this.props;
+    const { 
+      id, 
+      title, 
+      project,
+      elapsed, 
+      isRunning, 
+      onRemovePress,
+      onStartPress,
+      onStopPress
+    } = this.props;
     const { editFormOpen } = this.state;
 
     if (editFormOpen) {
@@ -55,6 +85,8 @@ export default class EditableTimer extends React.Component {
         isRunning={isRunning}
         onEditPress={this.handleEditPress}
         onRemovePress={onRemovePress}
+        onStartPress={onStartPress}
+        onStopPress={onStopPress}
       />
     );
   }

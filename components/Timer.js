@@ -6,10 +6,44 @@ import TimerButton from './TimerButton';
 
 export default class Timer extends React.Component {
 
+	handleStartPress = () => {
+		const { id, onStartPress } = this.props;
+
+		onStartPress(id);
+	};
+
+	handleStopPress = () => {
+		const { id, onStopPress } = this.props;
+
+		onStopPress(id);
+	}
+
 	handleRemovePress = () => {
 		const { id, onRemovePress } = this.props;
 
 		onRemovePress(id);
+	}
+
+	renderActionButton() {
+		const { isRunning } = this.props;
+
+		if (isRunning) {
+			return (
+				<TimerButton
+				  color="#DB2828"
+				  title="stop"
+				  onPress={this.handleStopPress}
+				/>
+		  );
+		}
+
+		return (
+			<TimerButton 
+			  color="#21BA45"
+			  title="Start"
+			  onPress={this.handleStartPress}
+			/>
+		);
 	}
 
   render() {
@@ -35,7 +69,7 @@ export default class Timer extends React.Component {
 			      onPress={this.handleRemovePress}
 			    />
 			  </View>
-			  <TimerButton color="#21BA45" title="Start" />
+			  {this.renderActionButton()}
 			</View>
 		)
   }
