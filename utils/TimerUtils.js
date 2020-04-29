@@ -27,7 +27,7 @@ export const newTimer = (attrs = {}) => {
     title: attrs.title || 'Timer',
     project: attrs.project || 'Project',
     // id: uuidv4(),
-    id: Math.random(),
+    id: Math.random().toString(),
     elapsed: 0,
     isRunning: false,
   };
